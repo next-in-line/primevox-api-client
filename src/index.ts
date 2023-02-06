@@ -14,7 +14,7 @@ export class PrimevoxApi {
     }
     async callHistory (query?: any): Promise<ICallResponse[]>{
         const response = await this.client.get<IPrimevoxApiCallHistoryResponse>(`/api/call_list.php?auth=${this.config.auth}&containerID=${this.config.containerID}&tenantID=${this.config.tenantID}`)
-        const calls : [string, IPrimevoxApiCallHistoryResponseCall][] = Object.entries(response.data)
+        const calls : [string, IPrimevoxApiCallHistoryResponseCall][] = Object.entries(response.data?.data)
         const values : ICallResponse[] = calls.map(([id, call]: [string, IPrimevoxApiCallHistoryResponseCall])=>({
             id,
             callUuid: call.callUuid,
