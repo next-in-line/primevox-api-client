@@ -1,7 +1,12 @@
 # Primevox Api Client
 ## Installing Api Client
+Yarn
 ```bash
-    yarn add primevox-api-client
+yarn add primevox-api-client
+```
+
+```bash
+npm install --save primevox-api-client
 ```
 
 ## Using Api Client
