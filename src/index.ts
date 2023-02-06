@@ -13,7 +13,7 @@ export class PrimevoxApi {
     }
     async callHistory (query: any): Promise<ICallResponse[]>{
         const response = await this.client.get<IPrimevoxApiCallResponse[]>(`/call_list.php?auth=${this.config.auth}&containerID=${this.config.containerID}&tenantID=${this.config.tenantID}`)
-        return response.data.map((call)=>({
+        const values : ICallResponse[] = response.data.map((call : IPrimevoxApiCallResponse)=>({
             callUuid: call.callUuid,
             callDate: call.callDate,
             callDirection: call.callDirection,
@@ -34,6 +34,7 @@ export class PrimevoxApi {
             didGroup: call.didGroup, // didGroup - The name of the Group this DID belongs to, if applicable. (only applies to inbound calls from the outside world) - String
             transcription: call.transcription 
         }))
+        return values;
     }
     static createClient(config: IPrimevoxConfig){
         return new this(config)
