@@ -29,8 +29,8 @@ export class PrimevoxApi {
             callFlagged: call.callFlagged == 1 ? true : false, // callFlagged - Whether the call is flagged for follow-up - 1 or 0
             callSeverity: call.callSeverity, // callSeverity - Severity rating of the call - 0 = No Severity, 1-10 otherwise
             callNotes: call.callNotes, // callNotes - Notes from the call - String (max. 255 characters)
-            wentToVoicemail: call.wentToVoicemail, // wentToVoicemail - Whether the caller was sent an extension's voicemail (only applies to inbound or internal calls) - 1 or 0
-            spokeToPerson: call.spokeToPerson, // spokeToPerson - Whether the caller ever actually spoke to someone (only applies to inbound or internal calls) - 1 or 0
+            wentToVoicemail: call.wentToVoicemail == 1 ? true : false, // wentToVoicemail - Whether the caller was sent an extension's voicemail (only applies to inbound or internal calls) - 1 or 0
+            spokeToPerson: call.spokeToPerson == 1 ? true : false, // spokeToPerson - Whether the caller ever actually spoke to someone (only applies to inbound or internal calls) - 1 or 0
             didGroup: call.didGroup, // didGroup - The name of the Group this DID belongs to, if applicable. (only applies to inbound calls from the outside world) - String
             transcription: call.transcription 
         }))

@@ -14,8 +14,8 @@ interface ICallResponse {
     callFlagged: boolean, // callFlagged - Whether the call is flagged for follow-up - 1 or 0
     callSeverity: number, // callSeverity - Severity rating of the call - 0 = No Severity, 1-10 otherwise
     callNotes: string, // callNotes - Notes from the call - String (max. 255 characters)
-    wentToVoicemail: number, // wentToVoicemail - Whether the caller was sent an extension's voicemail (only applies to inbound or internal calls) - 1 or 0
-    spokeToPerson: number, // spokeToPerson - Whether the caller ever actually spoke to someone (only applies to inbound or internal calls) - 1 or 0
+    wentToVoicemail: boolean, // wentToVoicemail - Whether the caller was sent an extension's voicemail (only applies to inbound or internal calls) - 1 or 0
+    spokeToPerson: boolean, // spokeToPerson - Whether the caller ever actually spoke to someone (only applies to inbound or internal calls) - 1 or 0
     didGroup: string, // didGroup - The name of the Group this DID belongs to, if applicable. (only applies to inbound calls from the outside world) - String
     transcription: string // transcription - The transcribed speech-to-text, if the feature is enabled. Otherwise this value is null/empty - String
 }
