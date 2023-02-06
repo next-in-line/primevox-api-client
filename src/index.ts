@@ -1,6 +1,7 @@
 import axios, { Axios } from "axios"
 import { IPrimevoxApiCallResponse } from "./interfaces/api/calls";
 import { IPrimevoxConfig } from "./interfaces/config"
+import {ICallResponse} from "./interfaces/responses/calls"
 
 export class PrimevoxApi {
     client: Axios;
