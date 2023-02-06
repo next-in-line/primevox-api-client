@@ -1,4 +1,4 @@
-=== Primevox Api
+# Primevox Api
 
 ```typescript
 import {PrimevoxApi} from "primevox-api-client"
