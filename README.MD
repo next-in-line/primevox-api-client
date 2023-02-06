@@ -1,5 +1,10 @@
-# Primevox Api
+# Primevox Api Client
+## Installing Api Client
+```bash
+    yarn add primevox-api-client
+```
 
+## Using Api Client
 ```typescript
 import {PrimevoxApi} from "primevox-api-client"
 
