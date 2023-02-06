@@ -2,7 +2,7 @@ import axios, { Axios } from "axios"
 import { IPrimevoxApiCallResponse } from "./interfaces/api/calls";
 import { IPrimevoxConfig } from "./interfaces/config"
 
-export class PrimeVoxApi {
+export class PrimevoxApi {
     client: Axios;
     config: IPrimevoxConfig;
     constructor(config: IPrimevoxConfig){
