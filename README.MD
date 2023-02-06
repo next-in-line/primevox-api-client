@@ -20,8 +20,9 @@ const primevoxApiClient = PrimevoxApi.create({
     tenantID: "your tenant id"
 })
 
-const calls = primevoxApiClient.callHistory()
-
-console.log(calls)
+const yourAsyncFunction = async ()=>{
+    const calls = await primevoxApiClient.callHistory()
+    console.log(calls)
+}
 ```
 
