@@ -5,6 +5,7 @@ Yarn
 yarn add primevox-api-client
 ```
 
+Npm
 ```bash
 npm install --save primevox-api-client
 ```
