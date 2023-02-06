@@ -1,5 +1,5 @@
 import axios, { Axios } from "axios"
-import { IPrimevoxApiCallHistoryResponseCall, IPrimevoxApiCallResponse } from "./interfaces/api/calls";
+import { IPrimevoxApiCallHistoryResponse, IPrimevoxApiCallHistoryResponseCall } from "./interfaces/api/calls";
 import { IPrimevoxConfig } from "./interfaces/config"
 import {ICallResponse} from "./interfaces/responses/calls"
 
@@ -12,8 +12,8 @@ export class PrimevoxApi {
             baseURL: config.host ?? "https://pbx.primevox.net"
         })
     }
-    async callHistory (query: any): Promise<ICallResponse[]>{
-        const response = await this.client.get<IPrimevoxApiCallResponse>(`/api/call_list.php?auth=${this.config.auth}&containerID=${this.config.containerID}&tenantID=${this.config.tenantID}`)
+    async callHistory (query?: any): Promise<ICallResponse[]>{
+        const response = await this.client.get<IPrimevoxApiCallHistoryResponse>(`/api/call_list.php?auth=${this.config.auth}&containerID=${this.config.containerID}&tenantID=${this.config.tenantID}`)
         const calls : [string, IPrimevoxApiCallHistoryResponseCall][] = Object.entries(response.data)
         const values : ICallResponse[] = calls.map(([id, call]: [string, IPrimevoxApiCallHistoryResponseCall])=>({
             id,
