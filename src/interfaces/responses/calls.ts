@@ -1,4 +1,5 @@
 export interface ICallResponse {
+    id: string,
     callUuid: string, // callUuid - User for further API queries - String/UUID
     callDate: string, // callDate - Date/time of call in supplied UTC offset - String/Datetime
     callDirection: number, // callDirection - 1 for Inbound, 2 for Outbound, 3 for Internal - Integer
