@@ -1,6 +1,6 @@
 {
   "name": "primevox-api-client",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "homepage": "https://github.com/next-in-line/primevox-api-client",
