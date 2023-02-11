@@ -1,7 +1,11 @@
 import axios, { Axios } from "axios"
-import { IPrimevoxApiCallHistoryResponse, IPrimevoxApiCallHistoryResponseCall } from "./interfaces/api/calls";
+import { IPrimevoxApiCallHistoryResponse, IPrimevoxApiCallHistoryResponseCall } from "./interfaces/api/responses/callHistories";
+import { IPrimevoxApiRingGroupAnalysis, IPrimevoxApiRingGroupAnalysisRecord } from "./interfaces/api/responses/ringGroupAnalysis";
 import { IPrimevoxConfig } from "./interfaces/config"
-import {ICallResponse} from "./interfaces/responses/calls"
+import { ICallHistoryParams } from "./interfaces/requests/callHistory";
+import { IPrimevoxRingGroupAnalysisParams } from "./interfaces/requests/ringGroupAnalysis";
+import { ICallHistoryResponse } from "./interfaces/responses/callHistory"
+import { IRingGroupAnalysisResponse } from "./interfaces/responses/ringGroup";
 
 export class PrimevoxApi {
     client: Axios;
@@ -12,10 +16,17 @@ export class PrimevoxApi {
             baseURL: config.host ?? "https://pbx.primevox.net"
         })
     }
-    async callHistory (query?: any): Promise<ICallResponse[]>{
-        const response = await this.client.get<IPrimevoxApiCallHistoryResponse>(`/api/call_list.php?auth=${this.config.auth}&containerID=${this.config.containerID}&tenantID=${this.config.tenantID}`)
+    async callHistory (query?: ICallHistoryParams): Promise<ICallHistoryResponse[]>{
+        const response = await this.client.get<IPrimevoxApiCallHistoryResponse>(`/api/call_list.php`, {
+            params: {
+                auth: this.config.auth,
+                containerID: this.config.containerID,
+                tenantID: this.config.tenantID,
+                query
+            }
+        })
         const calls : [string, IPrimevoxApiCallHistoryResponseCall][] = Object.entries(response.data?.data)
-        const values : ICallResponse[] = calls.map(([id, call]: [string, IPrimevoxApiCallHistoryResponseCall])=>({
+        const values : ICallHistoryResponse[] = calls.map(([id, call]: [string, IPrimevoxApiCallHistoryResponseCall])=>({
             id,
             callUuid: call.callUuid,
             callDate: call.callDate,
@@ -37,6 +48,28 @@ export class PrimevoxApi {
             didGroup: call.didGroup, // didGroup - The name of the Group this DID belongs to, if applicable. (only applies to inbound calls from the outside world) - String
             transcription: call.transcription 
         }))
+        return values;
+    }
+    async ringGroupAnalysis(query: IPrimevoxRingGroupAnalysisParams = {}){
+        const response = await this.client.get<IPrimevoxApiRingGroupAnalysis>(`/api/reports/raw/ringgroup`, {
+            params: {
+                auth: this.config.auth, 
+                containerID: this.config.containerID,
+                tenantID: this.config.tenantID,
+                ...query
+            }
+        })
+        const calls : [string, IPrimevoxApiRingGroupAnalysisRecord][] = Object.entries(response.data?.data)
+        const values : IRingGroupAnalysisResponse[] = calls.map(([id, ringGroupRecord]: [string, IPrimevoxApiRingGroupAnalysisRecord])=>({
+            id,
+            eventType: ringGroupRecord.eventType,
+            eventDate: ringGroupRecord.eventDate,
+            eventData1: ringGroupRecord.eventData1,
+            eventData2: ringGroupRecord.eventData2,
+            eventData3: ringGroupRecord.eventData3,
+            eventData4: ringGroupRecord.eventData4
+        }));
+        
         return values;
     }
     static createClient(config: IPrimevoxConfig){

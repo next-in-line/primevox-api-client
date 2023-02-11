@@ -1,4 +1,4 @@
-export interface ICallResponse {
+export interface ICallHistoryResponse {
     id: string,
     callUuid: string, // callUuid - User for further API queries - String/UUID
     callDate: string, // callDate - Date/time of call in supplied UTC offset - String/Datetime
